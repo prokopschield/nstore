@@ -96,26 +96,45 @@ function main() {
 		}
 	}
 
-	const cb = (functions as { [index: string]: Function })[cmd];
-	if (!cb) {
-		return runtime_error(`Command not found: ${cmd}`);
-	}
-
-	(async function run() {
-		for (const arg of args) {
-			if (arg) {
-				printc([32, `Running ${cmd} ${arg}`]);
-				try {
-					const res = await cb(arg);
-					res ? printc([32, res]) : printc([31, 'Execution failed.']);
-				} catch (error) {
-					printc([31, 'Error in execution:']);
-					console.log(error);
+	switch (cmd) {
+		case 'cat': {
+			(async function run() {
+				for (const arg of args) {
+					arg &&
+						(await functions
+							.cat(arg)
+							.then((b) => process.stdout.write(b)));
 				}
-			}
+				runtime_exit();
+			})();
+			break;
 		}
-		return runtime_exit();
-	})();
+
+		default: {
+			const cb = (functions as { [index: string]: Function })[cmd];
+			if (!cb) {
+				return runtime_error(`Command not found: ${cmd}`);
+			}
+
+			(async function run() {
+				for (const arg of args) {
+					if (arg) {
+						printc([32, `Running ${cmd} ${arg}`]);
+						try {
+							const res = await cb(arg);
+							res
+								? printc([32, res])
+								: printc([31, 'Execution failed.']);
+						} catch (error) {
+							printc([31, 'Error in execution:']);
+							console.log(error);
+						}
+					}
+				}
+				return runtime_exit();
+			})();
+		}
+	}
 }
 
 main();
