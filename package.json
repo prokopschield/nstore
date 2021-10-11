@@ -1,0 +1,26 @@
+{
+	"name": "@prokopschield/nstore",
+	"description": "NodeSite Store",
+	"version": "0.1.0-1",
+	"main": "lib/index.js",
+	"bin": {
+		"nstore": "lib/cli.js"
+	},
+	"scripts": {
+		"start": "node lib/cli",
+		"test": "npx nslibmgr test"
+	},
+	"author": "Prokop Schield",
+	"devDependencies": {
+		"@types/jsdom": "^16.2.13",
+		"@types/node": ">=14",
+		"@types/prettier": "^2.4.1"
+	},
+	"keywords": [],
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"jsdom": "^18.0.0",
+		"nsblob": "^0.2.9",
+		"prettier": "^2.4.1"
+	}
+}
