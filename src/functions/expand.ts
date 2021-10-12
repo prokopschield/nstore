@@ -39,17 +39,14 @@ export default async function expand(file_i: string): Promise<number> {
 			const matches = [...links].map((link) =>
 				link.href.match(/([0-9a-f]{64})\/(.*)/)
 			);
+			if (!matches?.length) return 0;
 			const promises = Array<Promise<void>>();
 			for (const match of matches) {
 				if (!match)
-					throw new Error(
-						`${file_i} is not a valid nstore compacted file.`
-					);
+					throw `${file_i} is not a valid nstore compacted file.`;
 				const [, hash, name] = match;
 				if (path.basename(name) !== name) {
-					throw new Error(
-						`${file_i} was maliciously crafted to cause damage and was not processed.`
-					);
+					throw `${file_i} was maliciously crafted to cause damage and was not processed.`;
 				}
 				promises.push(
 					nsblob.fetch(hash).then((data) => {
@@ -59,7 +56,7 @@ export default async function expand(file_i: string): Promise<number> {
 			}
 			await Promise.all(promises);
 			if (fs.existsSync(dir)) {
-				throw new Error(`${dir} exists!`);
+				throw `${dir} exists!`;
 			} else {
 				await fs.promises.mkdir(dir);
 			}

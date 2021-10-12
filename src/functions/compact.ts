@@ -12,8 +12,8 @@ export default async function compact(file: string): Promise<string | false> {
 	try {
 		const stat = await fs.promises.stat(file);
 		if (stat.isDirectory()) {
-			const files = (await fs.promises.readdir(file)).map((name: string) =>
-				path.resolve(file, name)
+			const files = (await fs.promises.readdir(file)).map(
+				(name: string) => path.resolve(file, name)
 			);
 			const hashmap = new Map<string, [boolean, string]>();
 			let ret = true;
@@ -48,7 +48,9 @@ export default async function compact(file: string): Promise<string | false> {
 				for (const [name, [is_dir, hash]] of hashmap_entries) {
 					const li = document.createElement('li');
 					const a = document.createElement('a');
-					a.href = `../${dirname}/${hash}/${name}${is_dir ? '.html' : ''}`;
+					a.href = `../${dirname}/${hash}/${name}${
+						is_dir ? '.html' : ''
+					}`;
 					a.innerHTML = `${name}${is_dir ? '/' : ''}`;
 					li.appendChild(a);
 					ul.appendChild(li);
@@ -61,7 +63,7 @@ export default async function compact(file: string): Promise<string | false> {
 					ext: '.html',
 				});
 				if (fs.existsSync(html_fp)) {
-					throw new Error(`Index file ${html_fp} already exists!`);
+					throw `Index file ${html_fp} already exists!`;
 				}
 				await io.write(html_fp, html);
 				const dirread = await fs.promises.readdir(file);
@@ -71,7 +73,7 @@ export default async function compact(file: string): Promise<string | false> {
 					if (html.includes(hash)) {
 						await fs.promises.unlink(rf);
 					} else {
-						const error = new Error(`Compact error: ${rf} processing failed!`);
+						const error = `Compact error: ${rf} processing failed!`;
 						throw error;
 					}
 				}
