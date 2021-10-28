@@ -20,7 +20,7 @@ export default async function compact(file: string): Promise<string | false> {
 			for (const file of files) {
 				const is_dir = (await fs.promises.stat(file)).isDirectory();
 				let hash = await compact(file);
-				if (fs.existsSync(file)) {
+				if (hash && fs.existsSync(file)) {
 					hash = await compact(file);
 				}
 				if (hash) {
