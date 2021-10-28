@@ -17,18 +17,16 @@ export default async function compact(file: string): Promise<string | false> {
 			);
 			const hashmap = new Map<string, [boolean, string]>();
 			let ret = true;
-			await Promise.all(
-				files.map(async (file) => {
-					const is_dir = (await fs.promises.stat(file)).isDirectory();
-					let hash = await compact(file);
-					if (fs.existsSync(file)) {
-						hash = await compact(file);
-					}
-					if (hash) {
-						hashmap.set(path.basename(file), [is_dir, hash]);
-					} else ret = false;
-				})
-			);
+			for (const file of files) {
+				const is_dir = (await fs.promises.stat(file)).isDirectory();
+				let hash = await compact(file);
+				if (fs.existsSync(file)) {
+					hash = await compact(file);
+				}
+				if (hash) {
+					hashmap.set(path.basename(file), [is_dir, hash]);
+				} else ret = false;
+			}
 			if (ret) {
 				const dirname = path.basename(path.resolve(file));
 				const title_text = `Index of ${dirname}/`;

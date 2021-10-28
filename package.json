@@ -1,7 +1,7 @@
 {
 	"name": "@prokopschield/nstore",
 	"description": "NodeSite Store",
-	"version": "0.1.0-3",
+	"version": "0.1.0-4",
 	"main": "lib/index.js",
 	"bin": {
 		"nstore": "lib/cli.js"
