@@ -55,13 +55,14 @@ export default async function compact(file: string): Promise<string | false> {
 				}
 				body?.appendChild(ul);
 				const html = format(documentElement.innerHTML);
-				const html_fp = path.format({
+				let html_fp = path.format({
 					dir: path.dirname(file),
 					name: path.basename(file),
 					ext: '.html',
 				});
-				if (fs.existsSync(html_fp)) {
-					throw `Index file ${html_fp} already exists!`;
+				while (fs.existsSync(html_fp)) {
+					console.error(`Index file ${html_fp} already exists!`);
+					html_fp = html_fp.slice(0, html_fp.length - 5) + '.d.html';
 				}
 				await io.write(html_fp, html);
 				const dirread = await fs.promises.readdir(file);
