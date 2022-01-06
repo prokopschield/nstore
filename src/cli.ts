@@ -17,7 +17,7 @@ function main() {
 	}
 
 	function printc(...a: [number, string][]) {
-		console.log(a.map((a) => color(...a)).join(' ') + color());
+		console.error(a.map((a) => color(...a)).join(' ') + color());
 	}
 
 	function runtime_error(e: string) {
@@ -123,11 +123,12 @@ function main() {
 						try {
 							const res = await cb(arg);
 							res
-								? printc([32, res])
+								? (process.stderr.write(color(32)),
+								  process.stdout.write(`${res}\n`))
 								: printc([31, 'Execution failed.']);
 						} catch (error) {
 							printc([31, 'Error in execution:']);
-							console.log(error);
+							console.error(error);
 						}
 					}
 				}
