@@ -404,6 +404,11 @@ prettier@^2.4.1:
   resolved "https://registry.npmjs.org/prettier/-/prettier-2.4.1.tgz"
   integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
 
+ps-std@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ps-std/-/ps-std-0.1.1.tgz#f221d38e799a54282d52129964dd7f42308a78d5"
+  integrity sha512-BVlnop9r+IkPilyw1uj4MQ8OyeK14XX8xC3ueQS9WBxiqFMncDzxcxMlo33K0rsZ5aRs+AWEZMtuImSR/ItzGA==
+
 psl@^1.1.33:
   version "1.8.0"
   resolved "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz"

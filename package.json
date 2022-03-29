@@ -21,6 +21,7 @@
 	"dependencies": {
 		"jsdom": "^18.0.0",
 		"nsblob": "^0.2.9",
-		"prettier": "^2.4.1"
+		"prettier": "^2.4.1",
+		"ps-std": "^0.1.1"
 	}
 }
